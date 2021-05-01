@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 import  { createContext } from 'react';
+import { ReactNode } from 'react';
+import { ITask } from './Index';
 
-export const TaskContext = createContext(undefined);
+type formelm = React.FormEvent<HTMLFormElement>;
+export const TaskContext = createContext<any>({});
 
-export const TaskProvider = ({ children }: any) => {
-    const [text, setText] = useState('');
-    const [day, setDay] = useState('');
-    const [reminder, setReminder] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [tasks, setTasks]= useState<object[]>([]);
+export function TaskProvider ({ children }: {children: ReactNode}) {
+    const [text, setText] = useState<string>('');
+    const [day, setDay] = useState<string>('');
+    const [reminder, setReminder] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
+    const [tasks, setTasks]= useState<ITask[]>([]);
 
     useEffect(()=> {
         const getTasks = async () => {
@@ -34,7 +37,7 @@ export const TaskProvider = ({ children }: any) => {
         await fetch(`http://localhost:5000/tasks/${id}`,{
             method: 'DELETE',
         })
-        setTasks(tasks.filter((task: any) => task.id !== id))
+        setTasks(tasks.filter((task: ITask) => task.id !== id))
     }
 
     const toggleReminder = async (id: number) => {
@@ -55,7 +58,7 @@ export const TaskProvider = ({ children }: any) => {
     }
 
 
-    const addTask = async (task: any) => {
+    const addTask = async (task: ITask) => {
         const res = await fetch('http://localhost:5000/tasks', {
             method: 'POST',
             headers: {
@@ -70,7 +73,7 @@ export const TaskProvider = ({ children }: any) => {
     }
 
 
-     function onSubmit(e: any)  {
+     function onSubmit(e: formelm )  {
         e.preventDefault()
         if(!text){
             alert('Please add a Task')
@@ -86,8 +89,8 @@ export const TaskProvider = ({ children }: any) => {
         
     }
 
-return (
-        <TaskContext.Provider value={{tasks, setTasks, text, setText, day, setDay, reminder, setReminder, open, setOpen, onSubmit, deleteTask, toggleReminder, addTask}}>
+    return (
+        <TaskContext.Provider value={{ tasks, setTasks, text, setText, day, setDay, reminder, setReminder, open, setOpen, onSubmit, deleteTask, toggleReminder, addTask}}>
             {children}
         </TaskContext.Provider>
     );

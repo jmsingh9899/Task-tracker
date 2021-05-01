@@ -4,6 +4,9 @@ import  {TaskContext}  from './TasksContext';
 import 'semantic-ui-css/semantic.min.css';
 import {Button,  Modal } from 'semantic-ui-react';
 
+
+type formelm = React.FormEvent<HTMLFormElement>;
+
 const AddTask = () => {
     const tasks: any = useContext(TaskContext)
 
@@ -13,7 +16,7 @@ const AddTask = () => {
     const [open, setOpen] = useState(false)
 
 
-    async function onSubmit(e: any)  {
+    async function onSubmit(e: formelm)  {
         e.preventDefault()
         if(!text){
             alert('Please add a Task')
@@ -54,7 +57,6 @@ const AddTask = () => {
                 <label>Set Reminder</label>
                 <input type='checkbox'
                 checked={reminder} 
-                // value={reminder} 
                 onChange={(e) => setReminder(e.currentTarget.checked)}/> 
               <input type='submit' value='Save Task'
               className='btn btn-block'/>

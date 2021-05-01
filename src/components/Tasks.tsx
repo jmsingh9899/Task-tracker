@@ -2,13 +2,14 @@ import { useContext } from 'react';
 import  {TaskContext}  from './TasksContext';
 import Task from './Task';
 import { List } from 'semantic-ui-react';
+import { ITask } from './Index';
 
 const Tasks = () => {
-    const time: any = useContext(TaskContext);
+    const {tasks} = useContext(TaskContext);
     return (
         <List>
-            {time.tasks.map((task: [{text: string, day: string, reminder:boolean, id: number}]) => (
-            <Task  task={task} />
+            {tasks.map((task: ITask) => (
+            <Task key={task.id} task={task} />
             ))}
         </List >
     )

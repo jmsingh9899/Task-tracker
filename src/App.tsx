@@ -2,11 +2,13 @@ import TaskHeader from './components/Header';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Footer from './components/Footer';
 import About from './components/About';
-import React from 'react';
+import React, {useState} from 'react';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 import  {TaskProvider}  from './components/TasksContext';
 import { Container } from 'semantic-ui-react';
+import Calendar from "./calendar";
+import moment from "moment";
 
 
 
@@ -14,6 +16,7 @@ import { Container } from 'semantic-ui-react';
 
 
 function App() {
+  const [value, setValue] = useState(moment())
 
   return (
     <Router>
@@ -29,6 +32,7 @@ function App() {
         ) }/>
         <Route path='/about' component={About} />
         <Footer />
+        <Calendar value={value} onChange={setValue} />
         </Container>
       </TaskProvider>
     </Router>

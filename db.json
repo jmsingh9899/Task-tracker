@@ -15,14 +15,8 @@
     {
       "text": "test 2",
       "day": "friday",
-      "reminder": false,
+      "reminder": true,
       "id": 4
-    },
-    {
-      "text": "tst",
-      "day": "fffffff",
-      "id": 5,
-      "reminder": false
     }
   ]
 }
